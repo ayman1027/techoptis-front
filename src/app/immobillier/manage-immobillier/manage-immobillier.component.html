@@ -1,0 +1,34 @@
+
+<div class="container">
+    <h2>Manage Immobilier</h2>
+    <form [formGroup]="propertyForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="name">Nom du bien</label>
+        <input id="name" formControlName="name" type="text">
+      </div>
+      <div>
+        <label for="date">Date de création</label>
+        <input id="date" formControlName="date" type="date">
+      </div>
+      <div>
+        <label for="photo">Photo</label>
+        <input id="photo" formControlName="photo" type="file" (change)="onFileChange($event)">
+      </div>
+      <div>
+        <label for="price">Prix</label>
+        <input id="price" formControlName="price" type="number">
+      </div>
+      <div>
+        <label for="service">Prestation</label>
+        <input id="service" formControlName="service" type="text">
+      </div>
+      <button type="submit">Enregistrer</button>
+    </form>
+  </div>
+  
+
+il va contenir le tableau recapitulatif d'un seul bien immobillier
+facture 
+suivie des interventions 
+recap des gains et des depenses 
+bouton pour demande de devis prestations 

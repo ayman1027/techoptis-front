@@ -1,0 +1,23 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "importHelpers": true,
+    "target": "ES2020",  // Gardez ES2020 pour plus de compatibilité
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["ES2020", "DOM"],
+    "allowSyntheticDefaultImports": true
+  },
+  "angularCompilerOptions": {
+    "enableIvy": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}
