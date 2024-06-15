@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Component, Injector, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { ImmobilierService, Property } from '../../immobilier.service';
 
 @Component({
@@ -9,59 +9,44 @@ import { ImmobilierService, Property } from '../../immobilier.service';
   templateUrl: './edit-immobillier.component.html',
   styleUrls: ['./edit-immobillier.component.css'],
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
-  providers: [ImmobilierService]
+  imports: [CommonModule, FormsModule]
 })
 export class EditImmobillierComponent implements OnInit {
-  immobillierForm: FormGroup;
-  propertyId!: number;
   property: Property | undefined;
+  immobilierService: ImmobilierService;
 
   constructor(
     private route: ActivatedRoute,
-    private fb: FormBuilder,
-    private immobilierService: ImmobilierService,
-    private router: Router
+    private router: Router,
+    private injector: Injector
   ) {
-    this.immobillierForm = this.fb.group({
-      name: [''],
-      date: [''],
-      photo: [''],
-      price: [''],
-      service: [''],
-    });
+    this.immobilierService = this.injector.get(ImmobilierService);
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.propertyId = +params['id'];
-      this.property = this.immobilierService.getPropertyById(this.propertyId);
-
-      if (this.property) {
-        this.immobillierForm.patchValue(this.property);
-      }
-    });
-  }
-
-  onFileChange(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.immobillierForm.patchValue({
-        photo: file,
-      });
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.property = this.immobilierService.getPropertyById(+id);
     }
   }
 
-  onSubmit() {
-    if (this.immobillierForm.valid) {
-      const updatedProperty: Property = {
-        ...this.property,
-        ...this.immobillierForm.value,
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        if (this.property) {
+          this.property.photo = e.target.result;
+        }
       };
-      this.immobilierService.updateProperty(updatedProperty);
+      reader.readAsDataURL(file);
+    }
+  }
+
+  onSubmit(): void {
+    if (this.property) {
+      this.immobilierService.updateProperty(this.property);
       this.router.navigate(['/immobilier/list']);
-    } else {
-      console.log('Form is not valid');
     }
   }
 }

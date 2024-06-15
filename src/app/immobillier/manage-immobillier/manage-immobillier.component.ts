@@ -1,44 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { jsPDF } from 'jspdf'; // Importer jsPDF
+import { ImmobilierService, Property, Facture } from '../../immobilier.service';
 
 @Component({
   selector: 'app-manage-immobillier',
   templateUrl: './manage-immobillier.component.html',
   styleUrls: ['./manage-immobillier.component.css'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule]
+  imports: [CommonModule]
 })
 export class ManageImmobillierComponent implements OnInit {
-  propertyForm: FormGroup;
+  property: Property | undefined;
 
-  constructor(private fb: FormBuilder) {
-    this.propertyForm = this.fb.group({
-      name: ['', Validators.required],
-      date: ['', Validators.required],
-      photo: [null, Validators.required],
-      price: ['', Validators.required],
-      service: ['', Validators.required]
-    });
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private immobilierService: ImmobilierService
+  ) { }
 
-  ngOnInit(): void { }
-
-  onFileChange(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.propertyForm.patchValue({
-        photo: file
-      });
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.property = this.immobilierService.getPropertyById(+id);
     }
   }
 
-  onSubmit() {
-    if (this.propertyForm.valid) {
-      console.log(this.propertyForm.value);
-      // Ajouter la logique pour enregistrer ou mettre à jour le bien immobilier
-    } else {
-      console.log('Form is not valid');
-    }
+  orderService(): void {
+    console.log('Commander une prestation');
+    // Ajouter la logique pour commander une prestation
+  }
+
+  downloadInvoice(facture: Facture): void {
+    const doc = new jsPDF();
+
+    doc.text('Facture', 10, 10);
+    doc.text(`Date : ${facture.date}`, 10, 20);
+    doc.text(`Montant : ${facture.montant} €`, 10, 30);
+    doc.text(`Description : ${facture.description}`, 10, 40);
+
+    doc.save(`facture_${facture.date}.pdf`);
   }
 }
+

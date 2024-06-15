@@ -9,7 +9,7 @@ import { ImmobilierService, Property } from '../../immobilier.service';
   styleUrls: ['./list-immobillier.component.css'],
   standalone: true,
   imports: [CommonModule],
-  providers: [ImmobilierService]
+  providers: []
 })
 export class ListImmobillierComponent implements OnInit {
   properties: Property[] = [];
@@ -40,4 +40,9 @@ export class ListImmobillierComponent implements OnInit {
   editProperty(id: number) {
     this.router.navigate(['/immobilier/edit', id]);
   }
+
+  navigateToEdit() {
+    this.router.navigate(['/immobilier/edit']);
+  }
 }
+
