@@ -24,12 +24,12 @@ export interface Property {
     petitDejeuner: boolean;
   };
   description: string;
-  factures?: Facture[];
-  interventions?: Intervention[];
-  revenue?: {
+  factures: Facture[];
+  interventions: Intervention[];
+  revenue: {
     location: number;
   };
-  expenses?: {
+  expenses: {
     services: number;
   };
 }
@@ -50,7 +50,7 @@ export class ImmobilierService {
         menage: true,
         petitDejeuner: true
       },
-      description: '',
+      description: 'Un bel appartement au cœur de Paris',
       factures: [
         { date: '2023-01-01', montant: 300, description: 'Loyer Janvier' },
         { date: '2023-02-01', montant: 300, description: 'Loyer Février' }
@@ -66,6 +66,33 @@ export class ImmobilierService {
         services: 600
       }
     },
+    {
+      id: 2,
+      name: 'Maison Bordeaux',
+      date: '2023-07-01',
+      photo: 'path/to/photo2.jpg',
+      price: 1500,
+      service: 'Piscine, Jardin',
+      services: {
+        menage: false,
+        petitDejeuner: true
+      },
+      description: 'Une belle maison à Bordeaux',
+      factures: [
+        { date: '2023-01-01', montant: 500, description: 'Loyer Janvier' },
+        { date: '2023-02-01', montant: 500, description: 'Loyer Février' }
+      ],
+      interventions: [
+        { date: '2023-05-01', description: 'Réparation du toit' },
+        { date: '2023-06-01', description: 'Entretien du jardin' }
+      ],
+      revenue: {
+        location: 1500
+      },
+      expenses: {
+        services: 700
+      }
+    }
     
   ]);
 
@@ -88,5 +115,4 @@ export class ImmobilierService {
     this.properties.next(properties);
   }
 }
-
 

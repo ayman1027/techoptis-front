@@ -10,5 +10,5 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, RouterModule]
 })
 export class ImmobillierComponent {
-  // Votre logique de composant ici
+  
 }

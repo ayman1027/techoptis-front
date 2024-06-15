@@ -23,7 +23,15 @@ export class EditComponent implements OnInit {
       menage: true,
       petitDejeuner: true
     },
-    description: ''
+    description: '',
+    factures: [], 
+    interventions: [], 
+    revenue: {
+      location: 0
+    },
+    expenses: {
+      services: 0
+    }
   };
 
   constructor(
