@@ -24,14 +24,10 @@ export interface Property {
     petitDejeuner: boolean;
   };
   description: string;
-  factures: Facture[];
-  interventions: Intervention[];
-  revenue: {
-    location: number;
-  };
-  expenses: {
-    services: number;
-  };
+  factures?: Facture[];
+  interventions?: Intervention[];
+  revenue?: { location: number };
+  expenses?: { services: number };
 }
 
 @Injectable({
@@ -98,20 +94,24 @@ export class ImmobilierService {
 
   properties$ = this.properties.asObservable();
 
+  getProperties(): Property[] {
+    return this.properties.getValue();
+  }
+
   getPropertyById(id: number): Property | undefined {
-    return this.properties.value.find((property) => property.id === id);
+    return this.getProperties().find((property) => property.id === id);
   }
 
   updateProperty(updatedProperty: Property): void {
-    const properties = this.properties.value.map((property) =>
+    const properties = this.getProperties().map((property) =>
       property.id === updatedProperty.id ? updatedProperty : property
     );
     this.properties.next(properties);
   }
 
   addProperty(property: Property): void {
-    property.id = this.properties.value.length + 1; 
-    const properties = [...this.properties.value, property];
+    property.id = this.getProperties().length + 1; 
+    const properties = [...this.getProperties(), property];
     this.properties.next(properties);
   }
 }

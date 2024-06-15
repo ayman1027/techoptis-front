@@ -28,7 +28,7 @@ export class ManageImmobillierComponent implements OnInit {
 
   orderService(): void {
     console.log('Commander une prestation');
-    
+    // Ajouter la logique pour commander une prestation
   }
 
   downloadInvoice(facture: Facture): void {
