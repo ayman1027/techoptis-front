@@ -1,2 +1,12 @@
-<p>list-location works!</p>
-ca va afficher toutes les locations avec la recherches par commodité 
+<div class="container">
+    <h2>Résultats de recherche pour "{{ searchTerm }}"</h2>
+    <div class="list-group">
+      <div *ngFor="let property of searchResults" class="list-group-item">
+        <h5>{{ property.name }}</h5>
+        <p>{{ property.description }}</p>
+        <p><strong>Prix:</strong> {{ property.price }} €</p>
+        <img [src]="property.photo" alt="Photo de {{ property.name }}" class="img-thumbnail" style="width: 150px;">
+      </div>
+    </div>
+  </div>
+  

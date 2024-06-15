@@ -1,22 +1,24 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router'; 
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
   standalone: true,
-  imports: [CommonModule, RouterModule]
+  imports: [CommonModule, FormsModule, RouterModule] 
 })
 export class NavbarComponent {
+  searchQuery: string = '';
 
-  constructor(private router: Router) {} 
+  constructor(private router: Router) {}
 
   onSearch(event: Event): void {
-    const searchTerm = (event.target as HTMLInputElement).value;
-    console.log('Search term:', searchTerm);
-    
+    event.preventDefault();
+    this.router.navigate(['/voyageur/list-location'], { queryParams: { query: this.searchQuery } });
   }
 
   navigateToLogin(): void {

@@ -38,9 +38,10 @@ const routes: Routes = [
       { path: 'reservation', component: ReservationComponent },
     ]
   },
-  { path: '', redirectTo: '/immobilier/list', pathMatch: 'full' },
-  { path: '**', redirectTo: '/immobilier/list' }
+  { path: '', redirectTo: '/voyageur', pathMatch: 'full' },
+  { path: '**', redirectTo: '/voyageur' }
 ];
 
 export { routes };
+
 
