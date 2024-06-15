@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { jsPDF } from 'jspdf'; // Importer jsPDF
+import { jsPDF } from 'jspdf'; 
 import { ImmobilierService, Property, Facture } from '../../immobilier.service';
 
 @Component({
@@ -28,7 +28,7 @@ export class ManageImmobillierComponent implements OnInit {
 
   orderService(): void {
     console.log('Commander une prestation');
-    // Ajouter la logique pour commander une prestation
+  
   }
 
   downloadInvoice(facture: Facture): void {

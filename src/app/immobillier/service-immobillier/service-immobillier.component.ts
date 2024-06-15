@@ -22,5 +22,5 @@ export class ServiceImmobillierComponent implements OnInit {
     });
   }
 
-  // Ajoutez d'autres méthodes si nécessaire
+  
 }

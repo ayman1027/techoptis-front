@@ -1,7 +1,7 @@
 <div class="container" *ngIf="property">
   <h1>Gestion du bien : {{ property.name }}</h1>
 
-  <!-- Section des Factures -->
+  
   <div *ngIf="property.factures && property.factures.length > 0">
     <h2>Factures</h2>
     <table>
@@ -10,7 +10,7 @@
           <th>Date</th>
           <th>Montant</th>
           <th>Description</th>
-          <th>Actions</th> <!-- Nouvelle colonne pour les actions -->
+          <th>Actions</th> 
         </tr>
       </thead>
       <tbody>
@@ -26,7 +26,7 @@
     </table>
   </div>
 
-  <!-- Section des Interventions -->
+
   <div *ngIf="property.interventions && property.interventions.length > 0">
     <h2>Suivi des interventions</h2>
     <ul>
@@ -37,7 +37,7 @@
     <button (click)="orderService()">Commander une prestation</button>
   </div>
 
-  <!-- Section Récapitulatif des Bénéfices et Dépenses -->
+  
   <div *ngIf="property.revenue && property.expenses">
     <h2>Récapitulatif des bénéfices et dépenses</h2>
     <ul>

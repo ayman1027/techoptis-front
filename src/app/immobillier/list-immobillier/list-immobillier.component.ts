@@ -33,7 +33,7 @@ export class ListImmobillierComponent implements OnInit {
   confirmDelete(id: number) {
     if (confirm('Êtes-vous sûr de vouloir supprimer ce bien?')) {
       console.log('Supprimer le bien', id);
-      // Ajouter la logique pour supprimer le bien immobilier
+      
     }
   }
 

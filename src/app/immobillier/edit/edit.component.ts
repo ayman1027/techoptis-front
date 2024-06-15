@@ -32,7 +32,7 @@ export class EditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Initialisation
+    
   }
 
   onFileSelected(event: any): void {

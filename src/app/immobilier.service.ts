@@ -66,7 +66,7 @@ export class ImmobilierService {
         services: 600
       }
     },
-    // Ajoutez d'autres propriétés ici
+    
   ]);
 
   properties$ = this.properties.asObservable();
@@ -83,7 +83,7 @@ export class ImmobilierService {
   }
 
   addProperty(property: Property): void {
-    property.id = this.properties.value.length + 1; // Générer un nouvel ID
+    property.id = this.properties.value.length + 1; 
     const properties = [...this.properties.value, property];
     this.properties.next(properties);
   }
