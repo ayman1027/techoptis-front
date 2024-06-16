@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Property, ImmobilierService } from '../../immobilier.service';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ImmobilierService, Property } from '../../immobilier.service';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, ReactiveFormsModule] 
 })
-export class EditComponent implements OnInit {
+export class EditComponent {
   property: Property = {
     id: 0,
     name: '',
@@ -19,43 +19,57 @@ export class EditComponent implements OnInit {
     photo: '',
     price: 0,
     service: '',
+    city: '',
     services: {
       menage: true,
       petitDejeuner: true
     },
     description: '',
-    factures: [], 
-    interventions: [], 
-    revenue: {
-      location: 0
-    },
-    expenses: {
-      services: 0
-    }
+    factures: [],
+    interventions: [],
+    revenue: { location: 0 },
+    expenses: { services: 0 }
   };
 
+  propertyForm: FormGroup;
+
   constructor(
-    private router: Router,
-    private immobilierService: ImmobilierService
-  ) { }
-
-  ngOnInit(): void {
-    
-  }
-
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.property.photo = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
+    private fb: FormBuilder,
+    private immobilierService: ImmobilierService,
+    private router: Router
+  ) {
+    this.propertyForm = this.fb.group({
+      name: ['', Validators.required],
+      date: ['', Validators.required],
+      photo: ['', Validators.required],
+      price: ['', Validators.required],
+      service: ['', Validators.required],
+      city: ['', Validators.required],
+      menage: [true],
+      petitDejeuner: [true],
+      description: ['', Validators.required]
+    });
   }
 
   onSubmit(): void {
-    this.immobilierService.addProperty(this.property);
-    this.router.navigate(['/immobilier/list']);
+    if (this.propertyForm.valid) {
+      const formValue = this.propertyForm.value;
+      this.property = {
+        ...this.property,
+        name: formValue.name,
+        date: formValue.date,
+        photo: formValue.photo,
+        price: formValue.price,
+        service: formValue.service,
+        city: formValue.city,
+        services: {
+          menage: formValue.menage,
+          petitDejeuner: formValue.petitDejeuner
+        },
+        description: formValue.description
+      };
+      this.immobilierService.addProperty(this.property);
+      this.router.navigate(['/immobilier/list']);
+    }
   }
 }

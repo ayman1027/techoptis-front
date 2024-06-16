@@ -1,40 +1,35 @@
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .nav .nav-link {
-    text-decoration: none;
-    color: #333;
-    padding: 10px 15px;
-    font-size: 16px;
-  }
-  
-  .nav .nav-link.active {
-    font-weight: bold;
-    color: #007bff;
-  }
-  
-  .nav .nav-link:hover {
-    color: #0056b3;
-  }
-  
-  header input {
-    padding: 5px 10px;
-    font-size: 16px;
-  }
-  
-  .user-icon {
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    border-radius: 50%;
-  }
-  
+.hero-section {
+  position: relative;
+  height: 100vh;
+  background: url('/assets/images/villa.jpg') no-repeat center center/cover;
+}
+
+.form-overlay {
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  left: 70px; 
+  margin-left: 70px; 
+}
+
+.card {
+  border-radius: 10px;
+  border: none;
+}
+
+.card h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.card p {
+  color: #777;
+}
+
+.btn-block {
+  width: 100%;
+  background-color: #ff5a5f;
+  border-color: #ff5a5f;
+}
+
+

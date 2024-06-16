@@ -12,6 +12,14 @@ export interface Intervention {
   description: string;
 }
 
+export interface Revenue {
+  location: number;
+}
+
+export interface Expenses {
+  services: number;
+}
+
 export interface Property {
   id: number;
   name: string;
@@ -19,6 +27,7 @@ export interface Property {
   photo: string;
   price: number;
   service: string;
+  city: string;
   services: {
     menage: boolean;
     petitDejeuner: boolean;
@@ -26,8 +35,8 @@ export interface Property {
   description: string;
   factures?: Facture[];
   interventions?: Intervention[];
-  revenue?: { location: number };
-  expenses?: { services: number };
+  revenue?: Revenue;
+  expenses?: Expenses;
 }
 
 @Injectable({
@@ -42,77 +51,72 @@ export class ImmobilierService {
       photo: 'path/to/photo.jpg',
       price: 1200,
       service: 'Wifi, TV',
+      city: 'Paris',
       services: {
         menage: true,
         petitDejeuner: true
       },
-      description: 'Un bel appartement au cœur de Paris',
+      description: 'Un bel appartement à Paris.',
       factures: [
-        { date: '2023-01-01', montant: 300, description: 'Loyer Janvier' },
-        { date: '2023-02-01', montant: 300, description: 'Loyer Février' }
+        { date: '2023-06-01', montant: 100, description: 'Facture 1' },
+        { date: '2023-07-01', montant: 150, description: 'Facture 2' }
       ],
       interventions: [
-        { date: '2023-03-01', description: 'Réparation de la plomberie' },
-        { date: '2023-04-01', description: 'Entretien annuel' }
+        { date: '2023-06-10', description: 'Réparation chaudière' },
+        { date: '2023-07-15', description: 'Peinture' }
       ],
-      revenue: {
-        location: 1200
-      },
-      expenses: {
-        services: 600
-      }
+      revenue: { location: 1200 },
+      expenses: { services: 250 }
     },
     {
       id: 2,
-      name: 'Maison Bordeaux',
+      name: 'Villa Nice',
       date: '2023-07-01',
-      photo: 'path/to/photo2.jpg',
+      photo: 'path/to/photo.jpg',
       price: 1500,
       service: 'Piscine, Jardin',
+      city: 'Nice',
       services: {
-        menage: false,
-        petitDejeuner: true
+        menage: true,
+        petitDejeuner: false
       },
-      description: 'Une belle maison à Bordeaux',
+      description: 'Une belle villa à Nice.',
       factures: [
-        { date: '2023-01-01', montant: 500, description: 'Loyer Janvier' },
-        { date: '2023-02-01', montant: 500, description: 'Loyer Février' }
+        { date: '2023-07-01', montant: 200, description: 'Facture 1' },
+        { date: '2023-08-01', montant: 250, description: 'Facture 2' }
       ],
       interventions: [
-        { date: '2023-05-01', description: 'Réparation du toit' },
-        { date: '2023-06-01', description: 'Entretien du jardin' }
+        { date: '2023-07-10', description: 'Entretien piscine' },
+        { date: '2023-08-15', description: 'Jardinage' }
       ],
-      revenue: {
-        location: 1500
-      },
-      expenses: {
-        services: 700
-      }
-    }
-    
+      revenue: { location: 1500 },
+      expenses: { services: 300 }
+    },
+   
   ]);
 
   properties$ = this.properties.asObservable();
 
   getProperties(): Property[] {
-    return this.properties.getValue();
+    return this.properties.value;
   }
 
   getPropertyById(id: number): Property | undefined {
-    return this.getProperties().find((property) => property.id === id);
+    return this.properties.value.find((property) => property.id === id);
   }
 
   updateProperty(updatedProperty: Property): void {
-    const properties = this.getProperties().map((property) =>
+    const properties = this.properties.value.map((property) =>
       property.id === updatedProperty.id ? updatedProperty : property
     );
     this.properties.next(properties);
   }
 
   addProperty(property: Property): void {
-    property.id = this.getProperties().length + 1; 
-    const properties = [...this.getProperties(), property];
+    property.id = this.properties.value.length + 1; 
+    const properties = [...this.properties.value, property];
     this.properties.next(properties);
   }
 }
+
 

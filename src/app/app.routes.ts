@@ -15,6 +15,7 @@ import { FacturePaiementComponent } from './voyageur/facture-paiement/facture-pa
 import { ListLocationComponent } from './voyageur/list-location/list-location.component';
 import { PrestationComponent } from './voyageur/prestation/prestation.component';
 import { ReservationComponent } from './voyageur/reservation/reservation.component';
+import { DescriptionComponent } from './voyageur/description/description.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,7 @@ const routes: Routes = [
       { path: 'list-location', component: ListLocationComponent },
       { path: 'prestation', component: PrestationComponent },
       { path: 'reservation', component: ReservationComponent },
+      { path: 'description/:id', component: DescriptionComponent }, 
     ]
   },
   { path: '', redirectTo: '/voyageur', pathMatch: 'full' },
@@ -43,5 +45,3 @@ const routes: Routes = [
 ];
 
 export { routes };
-
-
